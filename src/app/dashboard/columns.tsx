@@ -5,7 +5,8 @@ import { MoreHorizontal } from "lucide-react";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-//import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 import {
   DropdownMenu,
@@ -23,7 +24,7 @@ export type Payment = {
   date: Date;
   customer: string;
   email: string;
-  status: "pending" | "processing" | "success" | "failed";
+  status: "open" | "paid" | "void" | "uncollectible";
   value: number;
 };
 
@@ -105,6 +106,25 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: "status",
     header: "Status",
+    cell: ({ row }) => {
+      // const status = row.getValue("status");
+      const status = row.original.status;
+      return (
+        <div className="flex items-center gap-2">
+          <Badge
+            className={cn(
+              "rounded-full capitalize",
+              status === "open" && "bg-blue-500",
+              status === "paid" && "bg-green-600",
+              status === "void" && "bg-zinc-700",
+              status === "uncollectible" && "bg-red-600"
+            )}
+          >
+            {status}
+          </Badge>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "amount",
