@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { creatAction } from "@/app/actions";
+import Form from "next/form";
 
 function NewInvoice() {
   return (
@@ -9,7 +11,7 @@ function NewInvoice() {
       <div className="flex justify-between">
         <h1 className="text-5xl font-bold">Create Invoice</h1>
       </div>
-      <form className="grid gap-6 max-w-xs">
+      <Form action={creatAction} className="grid gap-6 max-w-xs">
         <div>
           <Label htmlFor="name" className="block font-semibold text-sm mb-2">
             Billing Name
@@ -40,7 +42,7 @@ function NewInvoice() {
         <div>
           <Button className="w-full font-semibold">submit</Button>
         </div>
-      </form>
+      </Form>
     </main>
   );
 }
